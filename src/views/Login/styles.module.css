@@ -1,0 +1,14 @@
+.login-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 5%;
+  gap: 10px;
+}
+
+.login-title {
+  text-align: center;
+  margin-bottom: 30px;
+  position: relative;
+  bottom: 46px;
+}
