@@ -7,13 +7,6 @@ const App = (): JSX.Element => {
   return (
     <>
       <RouterProvider router={router} />
-      {/* <p>
-        {isLogout
-          ? 'Please reload to Login'
-          : isActive
-          ? 'Hello There'
-          : 'Interact to be active'}
-      </p> */}
     </>
   )
 }

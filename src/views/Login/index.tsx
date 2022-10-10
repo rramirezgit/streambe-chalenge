@@ -74,7 +74,7 @@ const Login = (): JSX.Element => {
       .then(isValid => {
         if (!isValid) {
           setErrors({
-            username: 'username o password incorrectos'
+            username: 'Invalid username or password'
           })
         }
       })
@@ -91,8 +91,8 @@ const Login = (): JSX.Element => {
           await handleSubmit(values, options)
         }
         validationSchema={Yup.object({
-          username: Yup.string().required('El username es requerido'),
-          password: Yup.string().required('La password es requerida')
+          username: Yup.string().required('Required'),
+          password: Yup.string().required('Required')
         })}
       >
         {formik => (

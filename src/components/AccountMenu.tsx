@@ -34,8 +34,8 @@ const AccountMenu = (): JSX.Element => {
       text: 'Are you sure you want to logout?',
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
+      confirmButtonColor: '#8d6160',
+      cancelButtonColor: '#d9534f',
       confirmButtonText: 'Yes'
     }).then(result => {
       if (result.isConfirmed) {

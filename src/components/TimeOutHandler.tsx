@@ -4,10 +4,6 @@ import moment from 'moment'
 import Swal from 'sweetalert2'
 import { AuthContextTheme } from 'context/Auth'
 
-/**
- *  Este componente se encarga de manejar el tiempo de inactividad del usuario
- */
-
 const TimeOutHandler = (props: any): JSX.Element => {
   const timer = useRef<NodeJS.Timeout | undefined>()
   const { isAuthenticated } = useContext(AuthContextTheme)
@@ -34,20 +30,18 @@ const TimeOutHandler = (props: any): JSX.Element => {
   const showModal = async (): Promise<void> => {
     if (isAuthenticated) {
       await Swal.fire({
-        title: 'Session Timeout',
-        text: 'Your session has expired. Please login again.',
+        title: 'Are you there?',
+        html: 'You have been inactive for a while, please confirm to continue using the application ',
         icon: 'warning',
-        showCancelButton: false,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Login'
-      }).then(result => {
-        if (result.isConfirmed) {
-          props.onLogout()
-        } else {
-          removeEvents()
-          clearTimeout(timer.current)
-          props.onLogout()
+        timerProgressBar: true,
+        confirmButtonColor: '#d9534f',
+        confirmButtonText: 'Yes',
+        timer: 6000
+      }).then((result: any) => {
+        if (result.isDismissed) {
+          if (result.dismiss !== 'backdrop') {
+            props.onLogout()
+          }
         }
       })
     }
