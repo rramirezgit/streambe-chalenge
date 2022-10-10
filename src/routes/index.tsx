@@ -5,16 +5,17 @@ import { useContext } from 'react'
 import { createBrowserRouter, Navigate } from 'react-router-dom'
 import Dashboard from 'views/dashboard'
 import Login from 'views/Login'
+import Thanks from 'views/thanks'
 
 const ProtectedRoute = ({ children }: any): JSX.Element => {
-  const { isAuthenticated, user } = useContext(AuthContextTheme)
+  const { isAuthenticated, user, logout } = useContext(AuthContextTheme)
 
   return isAuthenticated ? (
     <>
       <TimeOutHandler
         timeOutInterval={user.expires_in}
         onLogout={() => {
-          // logout()
+          logout()
         }}
       >
         {children}
@@ -35,6 +36,14 @@ const router = createBrowserRouter([
     element: (
       <ProtectedRoute>
         <Dashboard />
+      </ProtectedRoute>
+    )
+  },
+  {
+    path: '/thankyou',
+    element: (
+      <ProtectedRoute>
+        <Thanks />
       </ProtectedRoute>
     )
   },

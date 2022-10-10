@@ -1,5 +1,3 @@
-// import styles from './index.module.css'
-
 import { Avatar } from '@mui/material'
 import {
   GridColDef,
@@ -53,7 +51,6 @@ const Dashboard = (): JSX.Element => {
       'https://www.mockachino.com/06c67c77-18c4-45/users'
     )
       .then(response => {
-        console.log(response)
         if (response?.status === 200) {
           return response.data.users.map((user: userInterface) => ({
             ...user,

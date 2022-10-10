@@ -22,7 +22,6 @@ const TimeOutHandler = (props: any): JSX.Element => {
   }, [])
 
   const eventHandler = (eventType: any): void => {
-    console.log(eventType)
     localStorage.setItem(
       'lastInteractionTime',
       moment(new Date()).format('YYYY-MM-DD HH:mm:ss')

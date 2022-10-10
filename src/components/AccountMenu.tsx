@@ -13,9 +13,11 @@ import Logout from '@mui/icons-material/Logout'
 import { Chip } from '@mui/material'
 import Swal from 'sweetalert2'
 import { AuthContextTheme } from 'context/Auth'
+import { useNavigate } from 'react-router-dom'
 
 const AccountMenu = (): JSX.Element => {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
+  const navigate = useNavigate()
   const { user, logout } = useContext(AuthContextTheme)
   const open = Boolean(anchorEl)
 
@@ -28,15 +30,13 @@ const AccountMenu = (): JSX.Element => {
 
   const handleLogout = async (): Promise<void> => {
     await Swal.fire({
-      title: 'Está seguro que desea salir?',
+      title: 'Logout',
+      text: 'Are you sure you want to logout?',
       icon: 'warning',
-      showCloseButton: true,
-      confirmButtonText: 'Si',
-      cancelButtonText: 'No',
       showCancelButton: true,
-      focusCancel: true,
-      confirmButtonAriaLabel: 'Thumbs up, great!',
-      cancelButtonAriaLabel: 'Thumbs down'
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes'
     }).then(result => {
       if (result.isConfirmed) {
         logout()
@@ -91,7 +91,7 @@ const AccountMenu = (): JSX.Element => {
           <Typography fontSize={20}>{user.name}</Typography>
         </Box>
         <Divider />
-        <MenuItem>
+        <MenuItem onClick={() => navigate('/thankyou')}>
           <ListItemIcon>
             <StarIcon fontSize="small" />
           </ListItemIcon>
