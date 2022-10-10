@@ -1,16 +1,20 @@
-import { Typography } from '@mui/material'
+/* eslint-disable @typescript-eslint/indent */
+
+import { RouterProvider } from 'react-router-dom'
+import router from 'routes'
 
 const App = (): JSX.Element => {
   return (
-    <Typography
-      variant="h1"
-      component="h1"
-      color="primary"
-      sx={{ textAlign: 'center' }}
-    >
-      {' '}
-      Hellooo Streambe
-    </Typography>
+    <>
+      <RouterProvider router={router} />
+      {/* <p>
+        {isLogout
+          ? 'Please reload to Login'
+          : isActive
+          ? 'Hello There'
+          : 'Interact to be active'}
+      </p> */}
+    </>
   )
 }
 

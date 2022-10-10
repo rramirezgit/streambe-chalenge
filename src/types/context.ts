@@ -7,6 +7,7 @@ export interface userInterface {
   access_token: string
   expires_in: number
   refresh_token: string
+  contactId: number
 }
 
 export interface AuthContextData {

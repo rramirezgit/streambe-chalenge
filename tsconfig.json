@@ -18,5 +18,6 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["src"]
+  "include": ["src", "layouts"],
+  "typeRoots": ["../node_modules/@types", "../@types"]
 }

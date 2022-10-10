@@ -1,11 +1,12 @@
-// import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import { Box, Button, TextField, Typography } from '@mui/material'
 import { Form, Formik, FormikHelpers, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
 // import { red } from '@mui/material/colors'
 import { useNavigate } from 'react-router-dom'
-// import { AuthContextTheme } from '../../context/Auth'
+import { AuthContextTheme } from '../../context/Auth'
 import { AuthLayout } from 'layouts/login'
+import { get } from 'services'
 import styles from './styles.module.css'
 
 interface LoginProps {
@@ -13,46 +14,82 @@ interface LoginProps {
   password: string
 }
 
+const Users = [
+  {
+    username: 'tom.manchini@yopmail.com',
+    password: '123456'
+  }
+]
+
 const Login = (): JSX.Element => {
   const navigate = useNavigate()
-  // const { login } = useContext(AuthContextTheme)
+  const { login, isAuthenticated } = useContext(AuthContextTheme)
 
-  const validateUser = (values: LoginProps): boolean => {
-    // const user = Users.find(
-    //   user =>
-    //     user.username === values.username && user.password === values.password
-    // )
-    // if (user) {
-    //   login({
-    //     username: values.username,
-    //     password: values.password,
-    //     role: user.role,
-    //     dependencias: user.dependencias,
-    //     name: user.name
-    //   })
-    //   return true
-    // }
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/')
+    }
+  }, [isAuthenticated, navigate])
+
+  const validateUser = async ({
+    username,
+    password
+  }: LoginProps): Promise<boolean> => {
+    const user = Users.find(
+      user => user.username === username && user.password === password
+    )
+
+    if (user) {
+      return await get('https://www.mockachino.com/06c67c77-18c4-45/login')
+        .then(response => {
+          if (response?.status === 200) {
+            login({
+              access_token: response.data.access_token,
+              contactId: response.data.contactId,
+              expires_in: response.data.expires_in,
+              lastname: response.data.lastname,
+              name: response.data.name,
+              refresh_token: response.data.refresh_token,
+              roles: response.data.roles,
+              token_type: response.data.token_type,
+              username: response.data.username
+            })
+            return true
+          }
+          return false
+        })
+        .catch(error => {
+          console.log(error)
+          return false
+        })
+    }
     return false
   }
 
-  const handleSubmit = (
+  const handleSubmit = async (
     values: LoginProps,
     { setErrors }: FormikHelpers<LoginProps>
-  ): void => {
-    if (validateUser(values)) {
-      navigate('/')
-    } else {
-      setErrors({
-        username: 'username o password incorrectos'
+  ): Promise<any> => {
+    await validateUser(values)
+      .then(isValid => {
+        if (!isValid) {
+          setErrors({
+            username: 'username o password incorrectos'
+          })
+        }
       })
-    }
+      .then(error => {
+        console.log(error)
+      })
   }
 
   return (
     <AuthLayout>
       <Formik
         initialValues={{ username: '', password: '' }}
-        onSubmit={(values, options) => handleSubmit(values, options)}
+        onSubmit={async (values, options) =>
+          await handleSubmit(values, options)
+        }
         validationSchema={Yup.object({
           username: Yup.string().required('El username es requerido'),
           password: Yup.string().required('La password es requerida')

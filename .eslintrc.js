@@ -17,7 +17,9 @@ module.exports = {
     project: './tsconfig.json'
   },
   plugins: ['react'],
-  rules: { '@typescript-eslint/strict-boolean-expressions': 'off' },
+  rules: {
+    '@typescript-eslint/strict-boolean-expressions': 'off'
+  },
   settings: {
     react: {
       version: 'detect',

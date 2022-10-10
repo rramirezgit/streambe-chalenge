@@ -2,6 +2,7 @@ import { createContext, useEffect, useState } from 'react'
 import { AuthContextData, userInterface } from 'types/context'
 
 const initialUser = {
+  contactId: 0,
   username: '',
   name: '',
   lastname: '',
@@ -27,9 +28,9 @@ const AuthContext = ({ children }: any): JSX.Element => {
 
   useEffect(() => {
     const user: string | null = sessionStorage.getItem('user')
-    if (user !== 'undefined') {
+    if (user !== null) {
       setIsAuthenticated(true)
-      setUser(JSON.parse(user as string))
+      setUser(JSON.parse(user))
     }
   }, [])
 
@@ -42,7 +43,7 @@ const AuthContext = ({ children }: any): JSX.Element => {
 
   const logout = (): void => {
     sessionStorage.removeItem('user')
-    setUser(prev => ({ ...prev }))
+    setUser(initialUser)
     setIsAuthenticated(false)
   }
 
