@@ -12,15 +12,24 @@ const Thanks = (): JSX.Element => {
           alignItems: 'center',
           justifyContent: 'center',
           height: 'calc(100vh - 200px)',
-          gap: 5
+          gap: 5,
+          padding: 5
         }}
       >
         <img
           src="https://streambe.com/wp-content/uploads/2022/07/streambe_isologotipo_vector.svg"
           alt="thanks"
-          width="600"
+          width="30%"
         />
-        <Typography variant="h1" component="h1" textAlign={'center'}>
+        <Typography
+          variant="h1"
+          component="h1"
+          textAlign={'center'}
+          fontSize={{
+            xs: '3rem',
+            sm: '4rem'
+          }}
+        >
           Thank you for the opportunity
         </Typography>
       </Box>

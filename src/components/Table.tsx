@@ -1,10 +1,21 @@
 import { Paper } from '@mui/material'
-import { DataGrid, GridToolbar } from '@mui/x-data-grid'
-// import CustomNoRowsOverlay from './CustomComponentTable'
+import {
+  DataGrid,
+  GridToolbarContainer,
+  GridToolbarQuickFilter
+} from '@mui/x-data-grid'
 
 interface TableProps {
   columns: any[]
   rows: any[]
+}
+
+const CustomToolbar = (): JSX.Element => {
+  return (
+    <GridToolbarContainer>
+      <GridToolbarQuickFilter />
+    </GridToolbarContainer>
+  )
 }
 
 const Table = ({ columns, rows }: TableProps): JSX.Element => {
@@ -13,14 +24,8 @@ const Table = ({ columns, rows }: TableProps): JSX.Element => {
       <DataGrid
         disableDensitySelector
         isCellEditable={() => false}
-        localeText={{
-          toolbarColumns: 'Columnas',
-          toolbarFilters: 'Filtros',
-          toolbarExport: 'Exportar'
-        }}
         components={{
-          // NoRowsOverlay: CustomNoRowsOverlay,
-          Toolbar: GridToolbar
+          Toolbar: CustomToolbar
         }}
         componentsProps={{
           toolbar: {
